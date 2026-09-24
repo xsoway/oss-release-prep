@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>oss-release-prep — Open-source release prep &amp; bilingual README</title>
+<style>
+  :root{
+    /* gruvbox-material 黑金 */
+    --bg0:        #1d2021;   /* 最深的背景 */
+    --bg1:        #282828;   /* 主背景 */
+    --bg2:        #32302f;   /* 浮起层 / 代码块 */
+    --bg3:        #3c3836;   /* 边框 / 分割 */
+    --fg:         #d4be98;   /* 主前景（暖米色） */
+    --fg-dim:     #a89984;   /* 次级文字 */
+    --gold:       #d79921;   /* 金色强调 */
+    --gold-soft:  #d8a657;   /* 柔和金 */
+    --red:        #ea6962;   /* 警示 / 红线 */
+    --green:      #a9b665;   /* 成功勾选 */
+    --cool:       #7daea3;   /* 次要冷色（青） */
+    --mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    --sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg0);
+    color:var(--fg);
+    font-family:var(--sans);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ===== 顶部导航 ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg,var(--bg0) 0%,rgba(29,32,33,.92) 100%);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--bg3);
+  }
+  .nav{
+    max-width:1000px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .nav-brand{font-family:var(--mono);font-weight:700;color:var(--gold);font-size:15px;letter-spacing:.5px}
+  .nav-brand b{color:var(--fg)}
+  .nav-right{display:flex;align-items:center;gap:16px}
+  .nav-links{display:flex;gap:18px;list-style:none}
+  .nav-links a{color:var(--fg-dim);text-decoration:none;font-size:14px;transition:color .15s}
+  .nav-links a:hover{color:var(--gold)}
+  .lang-switch{
+    display:inline-flex;border:1px solid var(--bg3);border-radius:999px;overflow:hidden;
+  }
+  .lang-switch button{
+    background:transparent;border:0;color:var(--fg-dim);padding:5px 14px;
+    font-size:13px;font-family:var(--sans);cursor:pointer;transition:all .15s;
+  }
+  .lang-switch button.active{background:var(--gold);color:var(--bg0);font-weight:700}
+  .lang-switch button:not(.active):hover{color:var(--gold)}
+
+  /* ===== 主视觉 ===== */
+  .hero{
+    max-width:1000px;margin:0 auto;padding:88px 24px 56px;text-align:center;
+  }
+  .hero .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:26px}
+  .badge{
+    font-family:var(--mono);font-size:12px;padding:3px 12px;border-radius:4px;
+    background:var(--bg2);color:var(--fg-dim);border:1px solid var(--bg3);
+  }
+  .badge.gold{color:var(--gold);border-color:var(--gold);background:rgba(215,153,33,.08)}
+  .hero h1{
+    font-family:var(--mono);font-size:clamp(34px,6vw,58px);font-weight:800;
+    color:var(--fg);letter-spacing:-1px;margin-bottom:14px;
+  }
+  .hero h1 .hl{color:var(--gold)}
+  .hero .tagline{font-size:clamp(16px,2.4vw,20px);color:var(--fg-dim);max-width:640px;margin:0 auto 22px}
+  .hero .snippet{
+    display:inline-block;font-family:var(--mono);font-size:13px;color:var(--gold-soft);
+    background:var(--bg1);border:1px solid var(--bg3);border-left:3px solid var(--gold);
+    padding:8px 18px;border-radius:0 6px 6px 0;margin-top:6px;
+  }
+  .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  .btn{
+    font-family:var(--mono);font-size:14px;font-weight:700;text-decoration:none;
+    padding:10px 22px;border-radius:6px;transition:all .15s;
+  }
+  .btn.primary{background:var(--gold);color:var(--bg0)}
+  .btn.primary:hover{background:var(--gold-soft);transform:translateY(-1px)}
+  .btn.ghost{border:1px solid var(--bg3);color:var(--fg)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* ===== 章节 ===== */
+  main{max-width:1000px;margin:0 auto;padding:24px;}
+
+  .section{padding:48px 0;border-top:1px solid var(--bg3)}
+  .section h2{
+    font-family:var(--mono);font-size:26px;font-weight:800;color:var(--fg);
+    margin-bottom:8px;display:flex;align-items:center;gap:12px;
+  }
+  .section h2 .sec-num{color:var(--gold);font-size:20px}
+  .section h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+  .section .lead{color:var(--fg-dim);margin-bottom:26px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--bg1);border:1px solid var(--bg3);border-radius:8px;padding:20px;
+  }
+  .card h3{font-size:16px;color:var(--gold);margin-bottom:10px;font-family:var(--mono)}
+  .card p,.card li{font-size:14.5px;color:var(--fg)}
+  .card ul{list-style:none}
+  .card li{padding:3px 0 3px 20px;position:relative;color:var(--fg)}
+  .card li::before{content:"▸";position:absolute;left:0;color:var(--gold)}
+
+  /* 反例对比 */
+  .anti{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--bg3);border-radius:8px;overflow:hidden;margin-bottom:12px;
+  }
+  .anti .col{padding:18px 20px}
+  .anti .col.bad{background:rgba(234,105,98,.06)}
+  .anti .col.good{background:rgba(169,182,101,.07)}
+  .anti h4{font-family:var(--mono);font-size:13px;margin-bottom:8px}
+  .anti .bad h4{color:var(--red)} .anti .good h4{color:var(--green)}
+  .anti p{font-size:14px;color:var(--fg)}
+
+  /* 代码块 / 终端 */
+  pre.code{
+    background:var(--bg2);border:1px solid var(--bg3);border-radius:8px;
+    padding:16px 20px;overflow-x:auto;margin:12px 0;font-family:var(--mono);font-size:13.5px;line-height:1.6;
+  }
+  pre.code .c{color:var(--fg-dim)}        /* 注释 */
+  pre.code .k{color:var(--gold-soft)}      /* 命令 */
+  pre.code .o{color:var(--fg)}             /* 输出 */
+  .copied-tip{display:none;color:var(--green);font-size:12.5px;margin-top:4px}
+
+  /* 清单 */
+  .check-list{list-style:none}
+  .check-list li{padding:7px 0 7px 26px;position:relative;color:var(--fg);font-size:14.5px}
+  .check-list li::before{content:"✔";position:absolute;left:0;color:var(--green);font-weight:700}
+  .check-list li.warn::before{content:"!";color:var(--gold)}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--bg3)}
+  th{font-family:var(--mono);color:var(--gold);font-size:13px;background:var(--bg1)}
+  td code,.inline{font-family:var(--mono);font-size:12.5px;color:var(--gold-soft);background:var(--bg2);padding:1px 6px;border-radius:4px}
+
+  a{color:var(--gold-soft)}
+  a:hover{color:var(--gold)}
+
+  footer{
+    border-top:1px solid var(--bg3);margin-top:48px;padding:28px 24px;text-align:center;
+    color:var(--fg-dim);font-size:13px;
+  }
+  footer .mono{font-family:var(--mono);color:var(--gold)}
+
+  /* 中英切换：默认中文，.en 类隐藏 */
+  [data-lang="zh"] .en{display:none}
+  [data-lang="en"] .zh{display:none}
+</style>
+</head>
+<body data-lang="zh">
+
+<header>
+  <div class="nav">
+    <div class="nav-brand">oss-<b>release-prep</b></div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li class="zh"><a href="#what">是什么</a></li>
+        <li class="zh"><a href="#why">为什么</a></li>
+        <li class="zh"><a href="#quickstart">快速开始</a></li>
+        <li class="zh"><a href="#usage">用法</a></li>
+        <li class="zh"><a href="#license">License</a></li>
+        <li class="en"><a href="#what">What</a></li>
+        <li class="en"><a href="#why">Why</a></li>
+        <li class="en"><a href="#quickstart">Quick Start</a></li>
+        <li class="en"><a href="#usage">Usage</a></li>
+        <li class="en"><a href="#license">License</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="language">
+        <button data-set-lang="zh" class="active">中文</button>
+        <button data-set-lang="en">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badges">
+    <span class="badge">v1.0</span>
+    <span class="badge gold">license MIT</span>
+    <span class="badge">status stable</span>
+    <span class="badge">ai · llm · skill · persona · self-memory</span>
+  </div>
+  <h1>oss-<span class="hl">release-prep</span></h1>
+  <p class="tagline zh">把任意项目整理成符合 GitHub 开源要求的可发布状态，并产出规范、中英双语可切换的 README。以证据为准，不凭经验拍脑袋。</p>
+  <p class="tagline en">Turn any project into a GitHub-ready, releasable state and generate a structured, bilingual (EN + ZH) README. Evidence over instinct.</p>
+  <div class="snippet zh">$ oss-release-prep → check · prepare · generate bilingual README</div>
+  <div class="snippet en">$ oss-release-prep → check · prepare · generate bilingual README</div>
+  <div class="hero-cta">
+    <a class="btn primary" href="https://github.com/xsoway/oss-release-prep" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn ghost zh" href="./README.md">English README</a>
+    <a class="btn ghost en" href="./README.md">README.md</a>
+  </div>
+</section>
+
+<main>
+  <!-- What -->
+  <section class="section" id="what">
+    <h2><span class="sec-num">01</span><span class="zh">是什么</span><span class="en">What it is</span></h2>
+    <p class="lead zh">一个 Codex Skill，把「可发布吗？」拆成可勾选、可验证的检查项，把「写 README」变成结构化、以证据驱动的文档。发布动作（git push、建仓库）不经用户显式授权绝不执行。</p>
+    <p class="lead en">A Codex Skill that turns "is it publishable?" into a checklist of verifiable items, and "write a README" into an evidence-driven document. Publishing actions never run without explicit user authorization.</p>
+    <div class="grid">
+      <div class="card"><h3>✓ Evidence-based checklist</h3><p class="zh">逐项检查版本库、必备文件、README 质量、敏感信息、可验证性；每项都有命令输出/文件存在/git 状态作为证据。</p><p class="en">Per-item checks of repo state, required files, README quality, sensitive info, and verifiability; every item backed by command output, file existence, or git state.</p></div>
+      <div class="card"><h3>✓ Bilingual README</h3><p class="zh">独立 README.md（英文）+ README.zh-CN.md（中文），切换链接互指、结构逐节镜像。</p><p class="en">Standalone README.md (EN) + README.zh-CN.md (ZH), cross-linked switch, mirrored structure.</p></div>
+      <div class="card"><h3>✓ Safety redline</h3><p class="zh">API key / token / 私钥 / 个人数据 / 绝对路径一律禁止，命中即阻断发布。</p><p class="en">API keys / tokens / private keys / personal data / absolute paths are hard-blocked; any hit halts release.</p></div>
+      <div class="card"><h3>✓ Validatable</h3><p class="zh">自带 scripts/validate_skill_package.py 与本包契约的单元测试。</p><p class="en">Ships scripts/validate_skill_package.py plus a unit test for its own package contract.</p></div>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="section" id="why">
+    <h2><span class="sec-num">02</span><span class="zh">为什么需要</span><span class="en">Why</span></h2>
+    <p class="lead zh">直觉式发布容易漏项、缺证据、埋敏感信息。本 skill 用固定清单与红线兜底。</p>
+    <p class="lead en">Instinct-driven releases miss items, lack evidence, and leak secrets. This skill enforces a fixed checklist and a hard redline.</p>
+    <div class="anti">
+      <div class="col bad"><h4>Instinct（反例）</h4><p class="zh">"看起来差不多" / 一个 README 随便写 / 中英混排 / 想发就发</p><p class="en">"Looks about right" / one sloppy README / mixed-language / publish on a whim</p></div>
+      <div class="col good"><h4>This skill（本方案）</h4><p class="zh">每项有证据 / 固定结构 + 双语独立 / 敏感信息扫描 / 发布动作门禁</p><p class="en">Every item evidenced / fixed structure + dual files / secret scan / gated publishing</p></div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section class="section" id="quickstart">
+    <h2><span class="sec-num">03</span><span class="zh">快速开始</span><span class="en">Quick Start</span></h2>
+    <p class="lead zh">校验本包契约，并运行本地单元测试。</p>
+    <p class="lead en">Validate this package's contract and run its local unit tests.</p>
+    <pre class="code"><span class="c"># 校验包契约</span>
+<span class="k">$ python3 scripts/validate_skill_package.py .</span>
+<span class="o">→ PASS: oss-release-prep package contract</span>
+
+<span class="c"># 运行单元测试</span>
+<span class="k">$ python3 -m unittest discover -s tests</span>
+<span class="o">→ exit 0</span></pre>
+  </section>
+
+  <!-- Usage -->
+  <section class="section" id="usage">
+    <h2><span class="sec-num">04</span><span class="zh">用法</span><span class="en">Usage</span></h2>
+    <p class="lead zh">发布检查清单覆盖五个层面；敏感信息扫描是独立红线证据项。</p>
+    <p class="lead en">The release checklist covers five layers; the secret scan is an independent redline evidence item.</p>
+    <table>
+      <tr><th>Layer</th><th class="zh">覆盖</th><th class="en">Scope</th></tr>
+      <tr>
+        <td><span class="inline">A</span> Repo state</td>
+        <td class="zh">git init / 默认分支 / 无敏感文件跟踪</td>
+        <td class="en">git init / default branch / no tracked secrets</td>
+      </tr>
+      <tr>
+        <td><span class="inline">B</span> Required files</td>
+        <td class="zh">README.md / 中文版 / LICENSE / .gitignore / .gitattributes</td>
+        <td class="en">README.md / ZH / LICENSE / .gitignore / .gitattributes</td>
+      </tr>
+      <tr>
+        <td><span class="inline">D</span> Secret scan</td>
+        <td class="zh">API key / token / 私钥 / 个人数据 / 绝对路径 → 零命中才可发布</td>
+        <td class="en">API key / token / key / PII / absolute path → zero hits to publish</td>
+      </tr>
+      <tr>
+        <td><span class="inline">G</span> Discoverability</td>
+        <td class="zh">About / topics（ai llm skill persona self-memory）/ Discussions / 主页</td>
+        <td class="en">About / topics (ai llm skill persona self-memory) / Discussions / homepage</td>
+      </tr>
+      <tr>
+        <td><span class="inline">K</span> Review gate</td>
+        <td class="zh">更新监管工具后做一次外部 reviewer 代码审查再发布</td>
+        <td class="en">external reviewer pass after updating guard tools before release</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- License -->
+  <section class="section" id="license">
+    <h2><span class="sec-num">05</span><span class="zh">License</span><span class="en">License</span></h2>
+    <p><a href="./LICENSE">MIT License</a> · <span class="zh">版权</span><span class="en">Copyright</span> (c) 2026 xsoway</p>
+  </section>
+</main>
+
+<footer>
+  <span class="zh">用</span><span class="en">Built with</span> <span class="mono">Gruvbox-Material</span> · <span class="zh">维护者</span><span class="en">Maintainer</span>:
+  <a href="https://github.com/xsoway" target="_blank" rel="noopener">@xsoway</a> ·
+  <a href="./README.md" class="zh">中文 README</a><a href="./README.md" class="en">ZH README</a> ·
+  <a href="https://github.com/xsoway/oss-release-prep/discussions" class="zh">讨论区</a><a href="https://github.com/xsoway/oss-release-prep/discussions" class="en">Discussions</a>
+</footer>
+
+<script>
+  // 中英切换：设置 body[data-lang]，按钮高亮 + 局部持久化
+  const root = document.body;
+  function setLang(lang){
+    root.setAttribute('data-lang', lang);
+    document.querySelectorAll('[data-set-lang]').forEach(b=>{
+      b.classList.toggle('active', b.dataset.setLang === lang);
+    });
+    try{ localStorage.setItem('omp-lang', lang); }catch(e){}
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(btn=>{
+    btn.addEventListener('click', ()=>setLang(btn.dataset.setLang));
+  });
+  // 记忆上次语言
+  try{ const saved = localStorage.getItem('omp-lang'); if(saved) setLang(saved); }catch(e){}
+</script>
+</body>
+</html>
