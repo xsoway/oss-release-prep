@@ -1,0 +1,11 @@
+id: basic-success
+title: "开源发布准备: 完整项目"
+input:
+  prompt: "把当前项目整理成可开源状态并生成中英文 README，要求包含检查清单、License 与用法说明，但不要执行 git push。"
+expect:
+  must_contain: ["README", "检查", "License", "中英"]
+judge:
+  type: rule_based
+  success:
+    - output_contains:
+        all: ["README", "检查", "License"]

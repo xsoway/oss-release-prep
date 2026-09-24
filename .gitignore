@@ -1,0 +1,18 @@
+# —— macOS ——
+.DS_Store
+
+# —— Python ——
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# —— 运行产物 ——
+.skill-up-workspaces/
+.skillopt-workspaces/
+
+# —— 近况与 IDE ——
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,9 @@
+version: 1
+metadata:
+  key: "oss-release-prep"
+interface:
+  display_name: "开源发布准备与 README 生成"
+  short_description: "把项目整理成符合 GitHub 开源要求的状态并产出规范、详细、中英双语可切换的 README。"
+  default_prompt: "Use the oss-release-prep skill to check and prepare a project for open-source release and generate a well-structured bilingual README."
+policy:
+  allow_implicit_invocation: true
