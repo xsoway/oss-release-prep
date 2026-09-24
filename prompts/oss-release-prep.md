@@ -30,7 +30,7 @@
 2. **逐项检查**：按 `references/release-checklist.md` 核对缺失工件、敏感信息、绝对路径、License、README 结构等，并记录证据。
 3. **补齐缺失**：按需创建/修复 `LICENSE`、`.gitignore`、`.gitattributes`、缺失的 README 章节、徽章、目录结构说明。
 4. **生成/改写 README**：中英双语，各自独立文件 + 顶部切换链接；English 版与中文版结构逐节镜像，内容按用户要求详尽。结构基准参照 `references/readme-style.md`。全程执行「敏感信息红线」。
-5. **推广面与社区**（如适用）：配置仓库 About / topics（`ai`、`llm`、`skill`、`persona`、`self-memory` 等），启用 GitHub Discussions，制作并链接项目主页（gruvbox-material 黑金风格、中英切换）。
+5. **推广面与社区**（如适用）：配置仓库 About / topics（`ai`、`llm`、`skill`、`persona`、`self-memory` 等），启用 GitHub Discussions，制作并链接项目主页。主页样式/交互/内容布局参照参考站 https://xsoway.github.io/obsidian-ai-vault-scaffold/（见 SKILL.md「项目主页（index.html）规范」节），生成后用无头浏览器做交互自测。
 6. **发布产物与门禁**（如适用）：用 `uv build` 产出 sdist/wheel 并附为 release assets；若更新了 make-code-clean / code-review-graph 等监管工具，先做一次外部 reviewer 代码审查再发布。
 7. **验证**：运行可执行的校验脚本（如包结构、链接、敏感信息扫描），区分"静态检查通过"与"已发布/已验证行为"。除非用户显式要求，不执行 git push / 创建远程仓库。
 
@@ -73,7 +73,7 @@
 - [ ] README 中英双语独立文件，切换链接互指正确，结构逐节镜像。
 - [ ] 无真实密钥、个人数据、绝对本机路径；无伪造的安装/运行结论。
 - [ ] 发布相关动作（git push / 建仓库）仅在用户显式授权时执行。
-- [ ] （如适用）About / topics / Discussions / 项目主页已配置并验证，主页为 gruvbox-material 黑金风格且支持中英切换。
+- [ ] （如适用）About / topics / Discussions / 项目主页已配置并验证，主页样式/交互/内容布局参照参考站 https://xsoway.github.io/obsidian-ai-vault-scaffold/、支持中英切换，且已通过无头浏览器交互自测（console 零报错、终端/目录树/时钟/Tweaks/响应式均正常）。
 - [ ] （如适用）release 已附 `uv build` 产出的 sdist/wheel 等可下载 assets，且 `dist/` 通过敏感信息扫描。
 - [ ] （如适用）发布质量门禁：更新监管工具后已做一次外部 reviewer 代码审查。
 - [ ] 交付说明含：做了什么、如何验证、产物路径、风险/回滚、复盘结论。

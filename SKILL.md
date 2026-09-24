@@ -1,6 +1,6 @@
 ---
 name: oss-release-prep
-description: Use this skill when preparing a project for open-source release or generating/expanding a GitHub README; triggers include 开源发布、推送到GitHub、发布检查、README生成、中英文README、开源项目规范、敏感信息检查、密钥检测、禁止泄露API key、仓库About与topics配置、GitHub Discussions、release产物（uv build sdist/wheel）、release assets、项目主页、外部代码审查、发布质量门禁 and open-source release prep.
+description: Use this skill when preparing a project for open-source release or generating/expanding a GitHub README; triggers include 开源发布、推送到GitHub、发布检查、README生成、中英文README、开源项目规范、敏感信息检查、密钥检测、禁止泄露API key、仓库About与topics配置、GitHub Discussions、release产物（uv build sdist/wheel）、release assets、项目主页、主页生成、主页风格、主页交互、主页自测、外部代码审查、发布质量门禁 and open-source release prep. 项目主页生成时，参照参考站 https://xsoway.github.io/obsidian-ai-vault-scaffold/ 的样式/交互/内容布局（见本 Skill「项目主页（index.html）规范」节），生成后进行自测检查。
 ---
 
 # OSS Release Prep
@@ -32,10 +32,71 @@ description: Use this skill when preparing a project for open-source release or 
 
 - **默认产物**：两个独立 README 文件（`README.md` 英文版 + `README.zh-CN.md` 中文版），各自顶部带指向另一语言文件的切换链接；内容按用户要求的详细度生成。
 - 附带一份 `RELEASE_CHECKLIST.md`（或 Markdown 检查记录），勾选已完成项、标明未完成项与证据。
-- **主页产物（可选）**：一份 gruvbox-material 黑金风格的 `index.html` 项目主页，内置中英切换；README 不承载主页时可用，About 的 Website 字段链接到它。
+- **主页产物（可选）**：一份 `index.html` 项目主页（风格/交互/内容布局参照参考站 `https://xsoway.github.io/obsidian-ai-vault-scaffold/`，见「项目主页（index.html）规范」节），内置中英切换；README 不承载主页时可用，About 的 Website 字段链接到它。
 
 - 发布辅助产物（可选，按 `references/release-checklist.md` G–K 节）：About/topics 配置、GitHub Discussions 启用、`uv build` 的 sdist/wheel 附为 release assets、更新监管工具后的外部 reviewer 代码审查、项目主页生成。
 - 不自动执行 git push / 创建远程仓库等外部动作，除非用户明确要求。
+
+## 项目主页（index.html）规范
+
+生成项目主页时，以 **定性参考站** `https://xsoway.github.io/obsidian-ai-vault-scaffold/`（下称"参考主页"）为**样式、交互、内容布局的基准**。主页只参考该站的视觉语言、交互模式与信息架构，**内容必须来自当前项目真实结构**，禁止照抄或编造。
+
+### 一、样式基准（照参考主页的视觉语言）
+
+- **主题锚定**：gruvbox-material 黑金风格——深底（约 `#1d2021`/`#282828`）+ 金色强调（`#d79921`/`#d8a657`），暖黑分层阴影、终端感"sharp-to-small"圆角、分层玻璃面板。
+- **字体**：展示字体 + 等宽字体组合（参考站用 Space Grotesk + JetBrains Mono，经 Google Fonts CDN 引入）。
+- **背景**：静态 `radial-gradient`/网格底 + 低透明度光晕动效（`glow-orb` 缓慢位移），保证深色高对比、可读、不刺眼。
+- **保持品牌一致**：同项目 README 与主页使用同一套 gruvbox 色彩与字体，不另起视觉体系。
+
+### 二、交互基准（参考主页的交互组件，按项目实际取舍，参考站全量具备）
+
+以下交互为参考主页成熟的模式，新主页应尽量覆盖；无法覆盖的注明原因：
+
+1. **打字动画终端 Hero**：右侧终端卡片逐行"打字"展示真实命令（clone → 设环境变量 → 执行脚本 → 展示输出），`$` 提示符绿色、输出金色/前景色，带闪烁 cursor。
+2. **实时时钟 + 日程高亮**：实时 HH:MM 时钟 + "现在该跑哪个自动化/任务"高亮，随当前时间切换。
+3. **动画流水线/循环可视化**：编号节点（如每日闭环 S1→S5）循环高亮 + 箭头动效，直观呈现项目的核心流程。
+4. **可展开目录树**：点击文件夹展开/收起，展示项目真实目录结构，脚本/配置按语义配色。
+5. **"试用命令"迷你终端**：可点选命令 chip，输出真实用法与结果（`✓` 开头绿色）。
+6. **滚动显现（scroll-reveal）**：区块进入视口时淡入上移。
+7. **中英切换（EN/中文）**：全局 toggle，全部文案带 `data-en`/`data-zh` 并随切换实时替换（含终端重播）。
+8. **Tweaks 面板**：强调色切换（金/绿/紫/蓝）+ 动效开关；尊重 `prefers-reduced-motion`。
+
+### 三、内容布局基准（参考主页的区块顺序）
+
+主页按参考主页的信息架构组织，区块顺序（按项目实际增删，整体遵循）：
+
+1. 粘性导航（brand + 锚点跳转 + 语言 toggle）
+2. Hero：一句话定位（英文主打 + 可切中文）→ 行动按钮（Star/仓库链接）→ 真实项目数据指标（分区/脚本/自动化数量，**以仓库实际为准**）
+3. 核心流程/流水线（对应"每日闭环"）
+4. 痛点 vs 本方案对比表 + 一句话定位引言
+5. 功能特性卡片（真实能力，不堆营销话术）
+6. "试用命令"迷你终端
+7. 目录/结构总览（可展开树）
+8. 定时/自动化日程（何时运行什么）
+9. 页脚：License、中英双 README 链接、GitHub/Discussions 链接
+
+### 四、内容红线（主页专属，叠加「敏感信息红线」）
+
+- **数据真实**：分区/脚本/脚本数量、目录树、命令、cron 时间表**必须来自当前项目真实结构**；不得编造统计或功能。无法从仓库确认的数字/功能不写。
+- **链接真实**：Star 按钮 / 仓库 / README / Discussions 链接指向当前项目真实 URL（可含占位仓库路径约定，但须指向正确仓库）。
+- **零敏感**：同「敏感信息红线」——无真实密钥、个人数据、绝对本机路径；含 GitHub URL 与占位路径时须确认无真实凭据。
+- **单文件**：必须是单个可独立部署的 `index.html`（GitHub Pages 从仓库根直接服务时无需构建）。
+
+### 五、生成后自测检查（强制，未通过不算完成）
+
+生成/修改主页后，必须用无头浏览器对**本地文件或本地 HTTP** 做一次交互自测，逐项确认并把结果写入交付说明；任何一项失败即修复后重测：
+
+- [ ] 页面能正常加载，`title` / `<h1>` / brand 正确，**浏览器 console 零报错**。
+- [ ] 背景色 = 参考站深底（约 `rgb(29,32,33)` = `#1d2021`），强调色 = 金色（约 `#d79921`）。
+- [ ] 终端打字动画逐行出现，结束后有静态光标；切语言后按对应语言重播。
+- [ ] 中英切换：所有带 `data-en`/`data-zh` 文案实时切换，无残留、无失效。
+- [ ] 目录树可展开/收起，渲染内容**无 `undefined`/`NaN`** 等占位错误。
+- [ ] 实时时钟走动且等于当前本地时间；日程高亮随当前时间正确切换（周末/周中规则正确）。
+- [ ] 流水线动画各节点循环高亮；"试用命令"各 chip 输出正确。
+- [ ] Tweaks（强调色 / 动效开关）切换生效；`prefers-reduced-motion` 生效。
+- [ ] 响应式：窄屏（约 380px）下单栏折叠、流水线纵向排列，无横向溢出。
+- [ ] 敏感信息扫描零命中（`git ls-files` 全文密钥正则扫描；CSS `mask-image` 含 `sk-` 属误报需人工确认）。
+- [ ] 所有数据（数字、目录树、命令、日程）与当前项目仓库真实结构一致。
 
 ## 如何使用
 
@@ -76,7 +137,6 @@ description: Use this skill when preparing a project for open-source release or 
 ## 目录结构 (Structure)          # ```text 树 ``` + 逐文件职责表
 ## 快速开始 (Quick Start)        # 环境要求 / 安装 / 构建 / 测试命令 + 预期输出
 ## 功能与用法 (Features / Usage)
-## 配置 (Configuration)          # 配置项说明（如适用）
 ## 集成/扩展 (Integrations)      # 如适用
 ## 安全边界 (Safety) / 设计原则 (Principles)
 ## FAQ（常见问题）
@@ -137,4 +197,4 @@ description: Use this skill when preparing a project for open-source release or 
 - 可发现性：About 一行定位 + topics（`ai`/`llm`/`skill`/`persona`/`self-memory`）+ Discussions + 可链接主页，让项目被搜到、能提问、有门面。
 - 发布产物：release 附 `uv build` 产出的 sdist/wheel 等可下载 assets，并验证 `gh release view` 资产列表与敏感信息扫描。
 - 发布质控：更新 make-code-clean / code-review-graph 等监管工具后，做一次外部 reviewer 代码审查再发布。
-- 主页：gruvbox-material 黑金风格 `index.html`，内置中英切换，About 的 Website 字段链接到它。
+- 主页：参照参考站 https://xsoway.github.io/obsidian-ai-vault-scaffold/ 的样式/交互/内容布局生成单文件 `index.html`（见「项目主页（index.html）规范」节），内置中英切换，About 的 Website 字段链接到它；生成后必须做无头浏览器交互自测。

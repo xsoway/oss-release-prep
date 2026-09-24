@@ -72,7 +72,7 @@ Publishing to GitHub seems trivial, but a naive pass leaves real risks behind. T
 - **Detailed docs**: follows a fixed outline (concepts, structure, quick start, config, integrations, FAQ, roadmap, contributing).
 - **Artifact repair**: creates or fixes missing `LICENSE`, `.gitignore`, `.gitattributes`, missing README sections, badges, and structure descriptions.
 - **Publish discoverability**: configures a one-line `About` description, GitHub `topics` (e.g. `ai`, `llm`, `skill`, `persona`, `self-memory`), and GitHub Discussions.
-- **Project homepage**: optional gruvbox-material black-and-gold `index.html` with built-in EN ⇄ 中文 switching, linkable from the repository `About`.
+- **Project homepage**: optional gruvbox-material black-and-gold `index.html` with built-in EN ⇄ 中文 switching, linkable from the repository `About`. Style / interaction / content-layout follow the reference site https://xsoway.github.io/obsidian-ai-vault-scaffold/ (full spec + mandatory headless-browser self-test after generation in SKILL.md「项目主页（index.html）规范」).
 - **Release assets**: instructs attaching downloadable build artifacts (e.g. `uv build` sdist + wheel) to a release, and verifying them with `gh release view`.
 - **Release quality gate**: after updating governance tools, runs one external-reviewer code review before publishing.
 - **Safety**: no real secrets / personal data / absolute paths; publishing actions require explicit authorization.
@@ -134,7 +134,7 @@ Point the skill at a project and it will:
 2. **Run the release checklist** — verify every item against `references/release-checklist.md` and record evidence.
 3. **Repair missing artifacts** — create or fix `LICENSE`, `.gitignore`, `.gitattributes`, missing README sections, badges, and structure descriptions.
 4. **Generate bilingual READMEs** — `README.md` (EN) + `README.zh-CN.md` (ZH), mirrored structure, cross-referenced switch links.
-5. **Promote discoverability** (optional) — About description, topics, GitHub Discussions, and a gruvbox-material bilingual homepage.
+5. **Promote discoverability** (optional) — About description, topics, GitHub Discussions, and a gruvbox-material bilingual homepage modeled on https://xsoway.github.io/obsidian-ai-vault-scaffold/; run a headless-browser interaction self-test after generating.
 6. **Build release assets** (optional) — `uv build` sdist/wheel attached as release assets; external-reviewer code review as a quality gate.
 7. **Deliver** — report what changed, how to verify, artifact paths, risks/rollback, and the secret-scan result as an explicit evidence item.
 
@@ -153,7 +153,7 @@ Each item requires evidence (command output, file existence, git state, code loc
 | **E** | Verifiability | Build/test commands run and pass (or reason recorded); deps and install steps documented. |
 | **F** | Action gate | `git push` / `gh repo create` only on explicit request; unexecuted actions reported. |
 | **G** | Discoverability | One-line `About`, topics (`ai`, `llm`, `skill`, `persona`, `self-memory`), verified via `gh repo view`. |
-| **H** | Project homepage | gruvbox-material black-and-gold `index.html`, built-in EN ⇄ 中文 switch, linked from `About`. |
+| **H** | Project homepage | gruvbox-material black-and-gold `index.html`, built-in EN ⇄ 中文 switch, linked from `About`. Style/layout/interactions follow https://xsoway.github.io/obsidian-ai-vault-scaffold/; headless-browser self-test after generation. |
 | **I** | Community ops | GitHub Discussions enabled with at least one category; Q&A/contribution entry points to it. |
 | **J** | Release assets | `uv build` sdist/wheel attached to the release; verified via `gh release view`. |
 | **K** | Release quality gate | Governance tools clean (`make-code-clean`, `code-review-graph`); external-reviewer review after tool updates. |

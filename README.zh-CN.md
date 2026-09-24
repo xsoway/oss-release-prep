@@ -72,7 +72,7 @@
 - **详细文档**：固定大纲（概念、结构、快速开始、配置、集成、FAQ、路线图、贡献指南）。
 - **补齐工件**：按需创建/修复 `LICENSE`、`.gitignore`、`.gitattributes`、缺失的 README 章节、徽章与结构说明。
 - **发布可发现性**：配置一行定位的 `About`、GitHub `topics`（如 `ai`、`llm`、`skill`、`persona`、`self-memory`）与 GitHub Discussions。
-- **项目主页**：可选的 gruvbox-material 黑金风格 `index.html`，内置中英切换，可从仓库 `About` 链接访问。
+- **项目主页**：可选的 gruvbox-material 黑金风格 `index.html`，内置中英切换，可从仓库 `About` 链接访问。样式/交互/内容布局参照参考站 https://xsoway.github.io/obsidian-ai-vault-scaffold/（完整规范与生成后无头浏览器自测见 SKILL.md「项目主页（index.html）规范」节）。
 - **发布产物**：指导把可下载构建产物（如 `uv build` 的 sdist + wheel）附到 release，并用 `gh release view` 验证。
 - **发布质量门禁**：更新监管工具后，先做一次外部 reviewer 代码审查再发布。
 - **安全**：无真实密钥 / 个人数据 / 绝对路径；发布动作需显式授权。
@@ -134,7 +134,7 @@ python3 -m unittest discover -s tests
 2. **跑发布检查清单**——按 `references/release-checklist.md` 逐项核对并记录证据。
 3. **补齐缺失工件**——按需创建/修复 `LICENSE`、`.gitignore`、`.gitattributes`、缺失的 README 章节、徽章与结构说明。
 4. **生成中英双语 README**——`README.md`（英）+ `README.zh-CN.md`（中），结构镜像、切换链接互指。
-5. **提升可发现性**（可选）——About 描述、topics、GitHub Discussions、gruvbox-material 双语主页。
+5. **提升可发现性**（可选）——About 描述、topics、GitHub Discussions、gruvbox-material 双语主页。主页参照 https://xsoway.github.io/obsidian-ai-vault-scaffold/，生成后做无头浏览器交互自测。
 6. **构建发布产物**（可选）——`uv build` 的 sdist/wheel 附为 release assets；更新监管工具后做一次外部 reviewer 代码审查作为质量门禁。
 7. **交付**——报告改了什么、如何验证、产物路径、风险/回滚，并把敏感信息扫描结果作为独立证据项。
 
@@ -153,7 +153,7 @@ python3 -m unittest discover -s tests
 | **E** | 可验证性 | 构建/测试命令已运行并通过（或记录原因）；依赖与安装步骤有据可查。 |
 | **F** | 动作门禁 | `git push` / `gh repo create` 仅在显式要求时执行；未授权动作如实报告。 |
 | **G** | 可发现性 | 一行 `About`、topics（`ai`、`llm`、`skill`、`persona`、`self-memory`），用 `gh repo view` 验证。 |
-| **H** | 项目主页 | gruvbox-material 黑金风格 `index.html`，内置中英切换，`About` 提供链接。 |
+| **H** | 项目主页 | gruvbox-material 黑金风格 `index.html`，内置中英切换，`About` 提供链接。样式/交互/内容布局参照 https://xsoway.github.io/obsidian-ai-vault-scaffold/；生成后无头浏览器自测。 |
 | **I** | 社区运营 | 启用 GitHub Discussions 且至少一个类别；提问/贡献入口指向它。 |
 | **J** | 发布产物 | `uv build` 的 sdist/wheel 附到 release，用 `gh release view` 验证。 |
 | **K** | 发布质量门禁 | 监管工具清理干净（`make-code-clean`、`code-review-graph`）；更新工具后做外部 reviewer 代码审查。 |
